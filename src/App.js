@@ -1,42 +1,34 @@
 import React from "react";
 import "./App.css";
-import { useSelector, useDispatch } from "react-redux";
-import { Inc, Dec } from "./actions";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Switch,
+  Link,
+} from "react-router-dom";
+import Headers from "./containers/Headers";
+import ProductListing from "./containers/ProductListing";
+import ProductsDetails from "./containers/ProductsDetails";
 const App = () => {
-  const mystate = useSelector((item) => item.changeIt);
-  const dispatch = useDispatch();
   return (
     <>
-      <div className="main-div">
-        <div className="container">
-          <h1>Increment/Decrement counter</h1>
-          <h4>using React and Redux</h4>
-
-          <div className="quantity">
-            <a
-              className="quantity__minus"
-              title="Decrement"
-              onClick={() => dispatch(Dec())}
-            >
-              <span>-</span>
-            </a>
-            <input
-              name="quantity"
-              type="text"
-              className="quantity__input"
-              value={mystate}
-              disabled
-            />
-            <a
-              className="quantity__plus"
-              title="Increment"
-              onClick={() => dispatch(Inc(5))}
-            >
-              <span>+</span>
-            </a>
-          </div>
-        </div>
-      </div>
+      <Router>
+        {/* <ul>
+          <li>
+            <Link to="/">ListAll</Link>
+          </li>
+          <li>
+            <Link to="/product/:productid">About Us</Link>
+          </li>
+        </ul> */}
+        <Headers />
+        <Routes>
+          <Route path="/" element={<ProductListing />} />
+          <Route path="/products/:pid" element={<ProductsDetails />} />
+          <Route>ERROR 404</Route>
+        </Routes>
+      </Router>
     </>
   );
 };
